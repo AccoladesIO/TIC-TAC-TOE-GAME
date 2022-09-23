@@ -1,0 +1,17 @@
+.box{
+    width: 4rem;
+    height: 4rem;
+    background-color: inherit;
+    border: none;
+    border-radius: 5px;
+    font-size: 3rem;
+    font-weight: bolder;
+    font-family: primaryFont;
+    box-shadow: 0.5px 0.5px 2px chartreuse;
+}
+.x{
+    color: rgb(0, 255, 123);
+}
+.o{
+    color: rgb(0, 123, 255);
+}
