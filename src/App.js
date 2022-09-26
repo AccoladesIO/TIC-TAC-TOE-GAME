@@ -20,6 +20,8 @@ function App() {
   const defaultValue = Array(9).fill(null);
   const [board, SetBoard] = useState(defaultValue)
   const [xPlaying, setXPlaying] = useState(true)
+  const [winner, setWinner] = useState("")
+  const [gameOver, setGameOver] = useState(false)
   const handleBox = (Boxidx) => {
     const updateBox = board.map((value, idx) => {
       if (idx === Boxidx) {
@@ -28,7 +30,16 @@ function App() {
         return value;
       }
     })
-    checkWinner(updateBox)
+    const playerWon = checkWinner(updateBox)
+
+    if(playerWon){
+      if(playerWon === 'X'){
+        setWinner("X")
+      }else{
+        setWinner("O")
+      }
+    }
+
     SetBoard(updateBox)
     setXPlaying(!xPlaying)
   }
@@ -37,17 +48,24 @@ function App() {
         const [x, y, z] = winnerMark[i]
          
         if (board[x] && board[x] === board[y] && board[x] === board[z]) {
+          setGameOver(true)
           console.log(board[x])
           return board[x]
         }       
       }
 
   }
+  const resetGame = () =>{
+    SetBoard(defaultValue)
+    setWinner("")
+    setGameOver(false)
+  }
+  
   return (
     <div className="App">
-      <Score />
-      <Board board={board} onClick={handleBox}/>
-      <Reset onClick={() => SetBoard(defaultValue)}/>
+      <Score value ={winner}/> 
+      <Board board={board} onClick={gameOver? resetGame : handleBox}/>
+      <Reset onClick={() => resetGame()}/>
     </div>
   );
 }
